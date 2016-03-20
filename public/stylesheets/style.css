@@ -6,3 +6,8 @@ body {
 a {
   color: #00B7FF;
 }
+
+.colcenter{
+	float: none;
+	margin: 0 auto;
+}

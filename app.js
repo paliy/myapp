@@ -32,6 +32,7 @@ db.once('open', function () {
     console.log('connection to testDb success');
 });
 
+
 require('./routes')(app);
 
 // catch 404 and forward to error handler
@@ -64,5 +65,8 @@ app.listen(3000, function () {
     console.log('Server start success = ' + 3000);
 });
 
+app.get('*', function(req, res) {
+  res.sendfile('./public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
+});
 
 module.exports = app;
