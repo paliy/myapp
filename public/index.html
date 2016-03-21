@@ -44,7 +44,7 @@
           </form>
           </div>
           <div class="modal-footer">
-            <input type="submit" class=" save btn btn-success" ng-click="createCustomer()" data-dismiss="modal" value="Save" />
+            <input type="submit" ng-disabled="myForm.$invalid" ng-required="true" class=" save btn btn-success" ng-click="createCustomer()" data-dismiss="modal" value="Save" />
           </div>
         </div>
       </div>
