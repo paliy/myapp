@@ -1,5 +1,5 @@
 body {
-  padding: 50px;
+  /*padding: 50px;*/
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -8,6 +8,70 @@ a {
 }
 
 .colcenter{
-	float: none;
-	margin: 0 auto;
+  float: none;
+  margin: 0 auto;
+}
+
+.button{
+  float: right;
+}
+
+.panel{
+  position: inherit;
+  margin-top: 10rem;
+}
+
+input{
+  margin-bottom: 2rem;
+  margin-top: 10px;
+}
+
+input[type="text"] {
+  font-size: 16px;
+}
+
+.save{
+  width: 10rem;
+}
+
+.modal-header{
+  background-color: #333333;
+}
+
+.close{
+  margin-top: 7px !important;
+  color: white;
+  font-size: 30px;
+  opacity: 1;
+}
+
+.close:hover{
+  color: aliceblue;
+  margin-top: 7px;
+}
+
+.modal-title{
+  color: aliceblue;
+  font-size: 33px
+}
+
+.modal-footer{
+  background-color: #e5e5e5
+}
+
+.lead{
+  display: inline-block;
+}
+.lead-right{
+  float: right;
+  margin-top: 2rem;
+}
+
+span{
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.form-footer{
+  text-align: right;
 }

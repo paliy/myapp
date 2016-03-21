@@ -1,19 +1,17 @@
-<!-- index.html -->
-<!doctype html>
-
-<!-- ASSIGN OUR ANGULAR MODULE -->
 <html ng-app="myapp">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Node/Angular Test App</title>
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script><!-- load angular -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.2.4/ui-bootstrap-tpls.js"></script>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"><!-- load bootstrap -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" ></script>
     <script src="core.js"></script>
+    
     <link rel="stylesheet" href="/stylesheets/style.css">
 
 </head>
@@ -22,29 +20,45 @@
     <div class="jumbotron text-center">
         <h1>All Users - {{ customers.length }}<span class="label label-info"></span></h1>
     </div>
-
+    <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Add New Customer</h4>
+          </div>
+          <div class="modal-body">
+           <form name="myForm" class="form-horizontal">
+            <span>First name:</span>
+            <input type="text" class="form-control" ng-model="formData.name.first" placeholder="Enter your first name"  ng-minlength="3" required>
+            <span>Last name:</span>
+            <input type="text" class="form-control" ng-model="formData.name.last" placeholder="Enter your last name"  ng-minlength="3" required>
+            <span>Company name:</span>
+            <input type="text" class="form-control" ng-model="formData.companyName" placeholder="Enter your company"  ng-minlength="3" required>
+            <span>Phone (work):</span>
+            <input type="text" class="form-control" ng-model="formData.phone.work" placeholder="Enter your phone(work)"  ng-minlength="3" required>
+            <span>Phone (mobile):</span>
+            <input type="text" class="form-control" ng-model="formData.phone.mobile" placeholder="Enter your phone(mobile)"  ng-minlength="3" required>
+            <span>Skype:</span>
+            <input type="text" class="form-control" ng-model="formData.skype" placeholder="Enter your skype name"  ng-minlength="3" required>
+          </form>
+          </div>
+          <div class="modal-footer">
+            <input type="submit" class=" save btn btn-success" ng-click="createCustomer()" data-dismiss="modal" value="Save" />
+          </div>
+        </div>
+      </div>
+    </div>
     <div id="users" class="row">
       <div class="col-md-6 colcenter">
-        <form name="myForm" class="form-horizontal">
-          <input style="margin-bottom: 2rem;" type="text" class="form-control" ng-model="formData.name.first" placeholder="Enter your first name"  ng-minlength="3" required>
-          
-          <input style="margin-bottom: 2rem;" type="text" class="form-control" ng-model="formData.name.last" placeholder="Enter your last name"  ng-minlength="3" required>
-          
-           <!-- <input type="text" ng-model="formData.dateOfBirth" placeholder="Enter your birth"  ng-minlength="3">  -->
-          
-          <input style="margin-bottom: 2rem;" type="text" class="form-control" ng-model="formData.companyName" placeholder="Enter your company"  ng-minlength="3" required>
-          
-          <input style="margin-bottom: 2rem;" type="text" class="form-control" ng-model="formData.phone.work" placeholder="Enter your phone(work)"  ng-minlength="3" required>
-          
-          <input style="margin-bottom: 2rem;" type="text" class="form-control" ng-model="formData.phone.mobile" placeholder="Enter your phone(mobile)"  ng-minlength="3" required>
-          
-          <input style="margin-bottom: 2rem;" type="text" class="form-control" ng-model="formData.skype" placeholder="Enter your skype name"  ng-minlength="3" required>
-
-          <input style="margin-bottom: 2rem;" type="submit" class="btn btn-success" ng-click="createCustomer()" value="Save" />
-        </form>
-
         <div class="panel panel-default">
-          <div class="panel-heading"><span class="lead">List of Users </span></div>
+          <div class="panel-heading"><h2 class="lead">List of Users </h2>
+            <button type="button" class="lead-right btn btn-success" data-toggle="modal" data-target="#myModal">Add New</button>
+
+            <div class="form-group">
+              <input type="text" ng-model="search" class="form-control" placeholder="Search">
+            </div>
+          </div>
           <div class="tablecontainer">
             <table class="table table-hover">
               <thead>
@@ -56,7 +70,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr ng-repeat="customer in customers">
+                <tr ng-repeat="customer in customers | filter:search">
                   <td>{{customer.name.first}}</td>
                   <td>{{customer.skype}}</td>
                   <td>{{customer.companyName}}</td>
@@ -67,33 +81,31 @@
                   </td>
                 </tr>
               </tbody>
-
-              
-
             </table>
             <script type="text/ng-template" id="myModalContent.html">
-              
               <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Edit user</h4>
+                <button type="button" class="close" ng-click="close()" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit Customer</h4>
               </div>
               <div class="modal-body">
                 <form name="myForm" class="form-horizontal">
-
+                  <span>First name:</span>
                   <input type="text" class="form-control" ng-model="customer.name.first" >
+                  <span>Last name:</span>
                   <input type="text" class="form-control" ng-model="customer.name.last" >
+                  <span>Company name:</span>
                   <input type="text" class="form-control" ng-model="customer.companyName" >
+                  <span>Phone (work):</span>
                   <input type="text" class="form-control" ng-model="customer.phone.work" >
+                  <span>Phone (mobile):</span>
                   <input type="text" class="form-control" ng-model="customer.phone.mobile" >
+                  <span>Skype:</span>
                   <input type="text" class="form-control" ng-model="customer.skype" >
-                  
-                  <input type="submit" class="btn btn-success" ng-click="editCustomer(customer)" value="Save" />
                 </form>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <input type="submit" class="save btn btn-success" ng-click="editCustomer(customer);close()" value="Save" />
               </div>
-         
             </script>
           </div>
         </div>
